@@ -1,22 +1,34 @@
 
-// Initialize/Reset Input  
-
-$("input").click(function() {
-  $(this).attr("value", "");
-  $(this).addClass("input-msg");
-  $("button").removeClass("shadow-button");
-  $(".alert").remove();
-  $(".icon-error").remove();
-  $("button").prop('disabled', false);
-});
 
 
-// Get Input and check Value
+// Get Input, check Value and reset form for a new input
+
+startInput();
 $("button").click(function() {
-    var inputEmail = $("input").val();
-    checkMail(inputEmail);
-    
+  var inputEmail = $("input").val();
+  checkMail(inputEmail);
+  newInput();
 });
+
+
+//*********************** Functions *****************************
+
+// Start Input Function
+
+function startInput(){
+  $("input").click(function() {
+    $(this).attr("value", "").addClass("input-msg");
+  });  
+}
+
+// New Input function  
+function newInput(){
+  $("input").click(function() {
+    $("button").removeClass("shadow-button").prop('disabled', false);
+    $(".alert").remove();
+    $(".icon-error").remove();
+  });
+}
 
 //Check Mail Function
 
@@ -30,10 +42,8 @@ function checkMail(input) {
     $('input').prop('disabled', true);
     $('button').prop('disabled', true);
   } else {
-    $("input").addClass("form-control-custom-alert");
-    $("button").addClass("shadow-button");
-    $("input").after("<img class='icon-error' src='images/icon-error.svg' alt='Icon Error' />");
+    $("input").addClass("form-control-custom-alert").after("<img class='icon-error' src='images/icon-error.svg' alt='Icon Error' />");
+    $("button").addClass("shadow-button").prop('disabled', true);;
     $("form").after("<p class='alert message'>Please provide a valid email!</p>");
-    $("button").prop('disabled', true);
   }
 }
